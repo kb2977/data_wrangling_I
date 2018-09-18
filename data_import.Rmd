@@ -1,8 +1,28 @@
 ---
 title: "Data Import"
+date: 
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+#library(janitor) = janitor::clean_names(litters_data) BUT there could be conflicting library packages between janitor and tidyverse
+```
+
+##Import FAS csv files
+
+Import my first csv
+
+```{r}
+litters_data = read_csv(file = "./data/FAS_litters.csv")
+litters_data = janitor::clean_names(litters_data) #janitor - r package with clean_names as r package inside
+```
+
+Importing pups dataset.
+
+```{r}
+litters_pups = read_csv(file = "./data/FAS_pups.csv")
+litters_pups = janitor::clean_names(litters_pups)
 ```
