@@ -1,0 +1,20 @@
+---
+title: "tidy_data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## gather
+
+PULSE Data
+
+```{r}
+pulse_data = haven::read_sas("./data/public_pulse_data.sas7bdat") %>%
+  janitor::clean_names()
+pulse_data
+```
+
