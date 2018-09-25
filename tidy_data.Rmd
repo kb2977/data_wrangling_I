@@ -18,3 +18,30 @@ pulse_data = haven::read_sas("./data/public_pulse_data.sas7bdat") %>%
 pulse_data
 ```
 
+```{r}
+pulse_tidy = pulse_data %>% 
+  gather(key = "visit", value = "bdi_score", bdi_score_bl:bdi_score_12m)
+```
+
+Illustrate seperate function:
+
+```{r}
+pulse_tidy %>% 
+  separate(visit, into = c("bdi_str", "score_str", "visit"), sep = "_") %>% 
+  select(-bdi_str, -score_str) %>% 
+  mutate(visit = replace(visit, visit == "bl", "00m")) %>% View
+```
+
+All together, the data import/ cleaning pipline is:
+
+```{r}
+pulse_df =
+  haven::read_sas("./data/public_pulse_data.sas7bdat") %>%
+  janitor::clean_names() %>%
+  gather(key = "visit", value = "bdi_score", bdi_score_bl:bdi_score_12m) %>% 
+  separate(visit, into = c("bdi_str", "score_str", "visit"), sep = "_") %>% 
+  select(-bdi_str, -score_str) %>% 
+  mutate(visit = replace(visit, visit == "bl", "00m"))
+```
+
+
